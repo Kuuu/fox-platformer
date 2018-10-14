@@ -21,7 +21,8 @@ public class CameraFollow : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-        transform.position = Vector3.SmoothDamp(transform.position, new Vector3(target.position.x, target.position.y + currentOffset, transform.position.z), ref velocity, smoothTime);	
+        if (target)
+            transform.position = Vector3.SmoothDamp(transform.position, new Vector3(target.position.x, target.position.y + currentOffset, transform.position.z), ref velocity, smoothTime);	
 	}
 
     void OnCrouch(bool isCrouching)

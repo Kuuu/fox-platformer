@@ -43,6 +43,7 @@ public class CharacterController2D : MonoBehaviour
 
 	private void FixedUpdate()
 	{
+
 		bool wasGrounded = m_Grounded;
 		m_Grounded = false;
 
@@ -63,8 +64,8 @@ public class CharacterController2D : MonoBehaviour
 
 	public void Move(float move, bool crouch, bool jump)
 	{
-		// If crouching, check to see if the character can stand up
-		if (!crouch && m_Grounded)
+        // If crouching, check to see if the character can stand up
+        if (!crouch && m_Grounded)
 		{
 			// If the character has a ceiling preventing them from standing up, keep them crouching
 			if (Physics2D.OverlapCircle(m_CeilingCheck.position, k_CeilingRadius, m_WhatIsGround))
@@ -143,4 +144,11 @@ public class CharacterController2D : MonoBehaviour
 		theScale.x *= -1;
 		transform.localScale = theScale;
 	}
+
+    public void DeathJump()
+    {
+        m_Rigidbody2D.velocity = Vector2.zero;
+        m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
+        enabled = false;
+    }
 }

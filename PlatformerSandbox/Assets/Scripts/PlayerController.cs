@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour {
 
     public float bottom = -10f;
 
+    private bool isAlive = true;
+
 
 	// Use this for initialization
 	void Start () {
@@ -24,6 +26,13 @@ public class PlayerController : MonoBehaviour {
 
     void Update()
     {
+        if (transform.position.y <= bottom)
+        {
+            GameController.Instance.RestartLevel();
+        }
+
+        if (!isAlive) return;
+
         movement = Input.GetAxisRaw("Horizontal");
 
 
@@ -48,14 +57,11 @@ public class PlayerController : MonoBehaviour {
         {
             animator.SetBool("running", false);
         }
-
-        if (transform.position.y <= bottom)
-        {
-            GameController.Instance.RestartLevel();
-        }
     }
 	
 	void FixedUpdate () {
+        if (!isAlive) return;
+
         character.Move(movement * speed * Time.fixedDeltaTime, crouch, jump);
         jump = false;
 	}
@@ -70,5 +76,15 @@ public class PlayerController : MonoBehaviour {
         {
             animator.SetBool("crouch", false);
         }
+    }
+
+    public void Lose()
+    {
+        isAlive = false;
+        GetComponent<BoxCollider2D>().enabled = false;
+        GetComponent<CircleCollider2D>().enabled = false;
+        Camera.main.GetComponent<CameraFollow>().target = null;
+        animator.SetTrigger("hurt");
+        character.DeathJump();
     }
 }

@@ -38,8 +38,11 @@ public class PlayerController : MonoBehaviour {
 
         if (Input.GetButtonDown("Jump"))
         {
-            jump = true;
-            animator.SetTrigger("jump");
+            if (!animator.GetBool("crouch"))
+            {
+                jump = true;
+                animator.SetTrigger("jump");
+            }
         }
 
         if (Input.GetButtonDown("Crouch"))

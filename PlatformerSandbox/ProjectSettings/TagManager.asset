@@ -18,8 +18,8 @@ TagManager:
   - Ground
   - Cherry
   - Spikes
-  - 
-  - 
+  - Enemy
+  - EnemyBounds
   - 
   - 
   - 
@@ -49,6 +49,9 @@ TagManager:
     locked: 0
   - name: Decorations
     uniqueID: 1683401669
+    locked: 0
+  - name: Enemies
+    uniqueID: 607665023
     locked: 0
   - name: Player
     uniqueID: 3224761785

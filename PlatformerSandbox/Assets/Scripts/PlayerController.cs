@@ -60,6 +60,11 @@ public class PlayerController : MonoBehaviour {
         {
             animator.SetBool("running", false);
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
     }
 	
 	void FixedUpdate () {

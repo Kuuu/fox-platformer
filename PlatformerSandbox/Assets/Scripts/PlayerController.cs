@@ -15,8 +15,10 @@ public class PlayerController : MonoBehaviour {
     public float bottom = -10f;
 
     private bool isAlive = true;
-    private bool isInsinsible = false;
+    private bool isInvinsible = false;
     private float invinsibleTimeAfterHurt = 1.4f;
+
+    private int lives = 3;
 
 
 	// Use this for initialization
@@ -90,14 +92,24 @@ public class PlayerController : MonoBehaviour {
 
     public void Hurt()
     {
-        animator.SetTrigger("hurt");
-        animator.SetBool("invinsible", true);
-        Invoke("EndInvinsible", invinsibleTimeAfterHurt);
+        if (lives == 1)
+        {
+            Lose();
+        }
+        else
+        {
+            animator.SetTrigger("hurt");
+            animator.SetBool("invinsible", true);
+            isInvinsible = true;
+            Invoke("EndInvinsible", invinsibleTimeAfterHurt);
+            lives--;
+        }
     }
 
     public void EndInvinsible()
     {
         animator.SetBool("invinsible", false);
+        isInvinsible = false;
     }
 
     public void Lose()
@@ -112,6 +124,6 @@ public class PlayerController : MonoBehaviour {
 
     public bool IsInvinsible()
     {
-        return isInsinsible;
+        return isInvinsible;
     }
 }

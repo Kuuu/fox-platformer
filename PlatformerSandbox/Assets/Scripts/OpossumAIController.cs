@@ -22,12 +22,18 @@ public class OpossumAIController : MonoBehaviour {
         rb.velocity = Vector3.SmoothDamp(rb.velocity, targetVelocity, ref m_Velocity, 0);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.tag == "Player") {
             if (!collision.GetComponent<PlayerController>().IsInvinsible())
                 collision.GetComponent<PlayerController>().Hurt();
-        } else if (collision.transform == transform.parent)
+        }
+
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.transform == transform.parent)
         {
             direction *= -1;
             GetComponent<SpriteRenderer>().flipX = !GetComponent<SpriteRenderer>().flipX;

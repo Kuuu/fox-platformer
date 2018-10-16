@@ -25,7 +25,8 @@ public class OpossumAIController : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Player") {
-            collision.GetComponent<PlayerController>().Lose();
+            if (!collision.GetComponent<PlayerController>().IsInvinsible())
+                collision.GetComponent<PlayerController>().Hurt();
         } else if (collision.transform == transform.parent)
         {
             direction *= -1;

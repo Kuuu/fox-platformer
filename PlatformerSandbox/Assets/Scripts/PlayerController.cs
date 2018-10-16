@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour {
     public float bottom = -10f;
 
     private bool isAlive = true;
+    private bool isInsinsible = false;
+    private float invinsibleTimeAfterHurt = 1.4f;
 
 
 	// Use this for initialization
@@ -86,13 +88,30 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
+    public void Hurt()
+    {
+        animator.SetTrigger("hurt");
+        animator.SetBool("invinsible", true);
+        Invoke("EndInvinsible", invinsibleTimeAfterHurt);
+    }
+
+    public void EndInvinsible()
+    {
+        animator.SetBool("invinsible", false);
+    }
+
     public void Lose()
     {
         isAlive = false;
         GetComponent<BoxCollider2D>().enabled = false;
         GetComponent<CircleCollider2D>().enabled = false;
         Camera.main.GetComponent<CameraFollow>().target = null;
-        animator.SetTrigger("hurt");
+        animator.SetTrigger("dead");
         character.DeathJump();
+    }
+
+    public bool IsInvinsible()
+    {
+        return isInsinsible;
     }
 }

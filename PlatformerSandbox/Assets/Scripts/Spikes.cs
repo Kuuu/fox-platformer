@@ -16,6 +16,7 @@ public class Spikes : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        collision.GetComponent<PlayerController>().Lose();
+        if (!collision.GetComponent<PlayerController>().IsInvinsible())
+            collision.GetComponent<PlayerController>().Hurt();
     }
 }

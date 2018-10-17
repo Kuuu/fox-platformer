@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour {
     CharacterController2D character;
     Animator animator;
 
+    public UIController ui;
     public float speed = 40f;
     private float movement = 0f;
     private bool jump = false;
@@ -92,6 +93,8 @@ public class PlayerController : MonoBehaviour {
 
     public void Hurt()
     {
+        ui.MinusHearts(1);
+
         if (lives == 1)
         {
             Lose();
